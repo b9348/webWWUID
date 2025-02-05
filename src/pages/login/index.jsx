@@ -196,9 +196,7 @@ function Login() {
         手机上获取token：打开<a href="https://www.kurobbs.com/mc/">库街区鸣潮</a>，使用手机上的电脑模式（又叫UA，设置为PC）访问，随后在右上角操作登录，登录完成后，在浏览器地址栏复制以下代码启用手机模仿电脑F12控制台插件：
         {``}
         <br />
-        <Input value={`javascript:(function () { var script = document.createElement('script');
-         script.src="https://cdnjs.cloudflare.com/ajax/libs/eruda/2.4.1/eruda.min.js"; 
-          document.body.appendChild(script); script.onload = function () { eruda.init() } })();`} / >
+        <Input value={`javascript:(function () { var script = document.createElement('script');script.src="https://cdnjs.cloudflare.com/ajax/libs/eruda/2.4.1/eruda.min.js";document.body.appendChild(script); script.onload = function () { eruda.init() } })();`} / >
         随后屏幕右下角会出现一个方形齿轮图标，点击图标后可以打开和电脑一样的F12控制台，随后看网页
 
         左边鸣潮
