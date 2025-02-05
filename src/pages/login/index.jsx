@@ -100,7 +100,7 @@ function Login() {
           type="number"
           rules={[{ required: true, message: 'Please input your UID!' }]}
         >
-          <InputNumber controls={false} style={{ width: '100%' }} size={'large'} value={uid} defaultValue={localStorage.uid ? localStorage.uid : uid} onChange={(e) => setUid(e.target.value)} />
+          <Input controls={false} style={{ width: '100%' }} size={'large'} value={uid} defaultValue={localStorage.uid > 0 ? localStorage.uid : uid} onChange={(e) => setUid(e.target.value)} />
         </Form.Item>
         <Form.Item
           label="Token"
