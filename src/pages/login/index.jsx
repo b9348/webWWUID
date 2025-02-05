@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Button, Form, Input, InputNumber } from 'antd'
+import { Button, Form, Input } from 'antd'
 const { TextArea } = Input;
 import styles from './index.module.less'
 
@@ -8,7 +8,6 @@ function Login() {
   const [token, setToken] = useState('')
   const [towerData, setTowerData] = useState('')
   const [towerRender, setTowerRender] = useState(false)
-  const [roles, setRoles] = useState([])
   const [mingzuo, setMingzuo] = useState({})
   const serverId = '76402e5b20be2c39f095a152090afddc'
 
@@ -21,14 +20,14 @@ function Login() {
   }, [])
 
   const onFinish = () => {
-    console.log('saveDataToBrowser');
+    // console.log('saveDataToBrowser');
     localStorage.setItem('uid', uid)
     localStorage.setItem('token', token)
     alert('保存成功，可以查询')
   }
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo)
+    // console.log('Failed:', errorInfo)
   }
 
   const fetchTest = async () => {
@@ -72,7 +71,7 @@ function Login() {
 
       if (rsp.code === 200) {
         const res = JSON.parse(rsp.data)
-        console.log(res.difficultyList[3]);
+        // console.log(res.difficultyList[3]);
         setTowerData(res)
         setTowerRender(true)
         const roleIds = new Set();
@@ -84,8 +83,7 @@ function Login() {
           }
         }
         const uniqueRoleIds = Array.from(roleIds);
-        setRoles(uniqueRoleIds);
-        console.log(uniqueRoleIds);
+        // console.log(uniqueRoleIds);
         if (uniqueRoleIds.length > 0) {
           // 基础版
           const fetchAllSettled = async (ids) => {
@@ -141,10 +139,10 @@ function Login() {
               result[roleId] = { roleName, gongminglian };
             });
 
-            console.log(result);
+            // console.log(result);
             setMingzuo(result)
-            console.log('成功:', successes);
-            console.log('失败:', failures);
+            // console.log('成功:', successes);
+            // console.log('失败:', failures);
           });
         }
       } else {
