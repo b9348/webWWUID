@@ -8,6 +8,9 @@ function Login() {
   const [token, setToken] = useState('')
   const [towerData, setTowerData] = useState('')
   const [towerRender, setTowerRender] = useState(false)
+  const [roles, setRoles] = useState([])
+  const [mingzuo, setMingzuo] = useState({})
+  const serverId = '76402e5b20be2c39f095a152090afddc'
 
   const [charJson, setCharJson] = useState({})
 
@@ -53,12 +56,11 @@ function Login() {
     const formData = new URLSearchParams()
     formData.append('gameId', 3)
     formData.append('roleId', uid ? uid : localStorage.getItem('uid'))
-    formData.append('serverId', '76402e5b20be2c39f095a152090afddc')
-    formData.append('id', '1505')
+    formData.append('serverId', serverId)
     try {
       const response = await fetch(url, {
         method: 'POST',
-        headers: headers,
+        headers,
         body: formData,
       })
 
@@ -73,6 +75,78 @@ function Login() {
         console.log(res.difficultyList[3]);
         setTowerData(res)
         setTowerRender(true)
+        const roleIds = new Set();
+        for (const area of res.difficultyList[3].towerAreaList) {
+          for (const floor of area.floorList) {
+            for (const role of floor.roleList) {
+              roleIds.add(role.roleId);
+            }
+          }
+        }
+        const uniqueRoleIds = Array.from(roleIds);
+        setRoles(uniqueRoleIds);
+        console.log(uniqueRoleIds);
+        if (uniqueRoleIds.length > 0) {
+          // 基础版
+          const fetchAllSettled = async (ids) => {
+            const requests = ids.map(id => {
+              const formData = new URLSearchParams();
+              formData.append('gameId', 3)
+              formData.append('roleId', uid ? uid : localStorage.getItem('uid'))
+              formData.append('serverId', serverId)
+              formData.append('id', id.toString());
+              return fetch('https://api.kurobbs.com/aki/roleBox/akiBox/getRoleDetail', {
+                method: 'POST',
+                body: formData,
+                headers
+              })
+                .then(res => res.json())
+                .catch(error => ({ id, error: error.message })); // 捕获单个错误
+            });
+
+            const results = await Promise.allSettled(requests);
+
+            return results.map(result =>
+              result.status === 'fulfilled' ? result.value : result.reason
+            );
+          };
+
+          // 使用示例
+          fetchAllSettled(uniqueRoleIds).then(results => {
+            const successes = results.filter(r => !r.error);
+            const failures = results.filter(r => r.error);
+            const newArray = [];
+
+            // 遍历原始数组
+            for (const item of successes) {
+              // 使用JSON.parse()解析每个元素的data属性
+              const parsedData = JSON.parse(item.data);
+              // 将解析后的对象添加到新数组中
+              newArray.push(parsedData);
+            }
+
+
+            let result = {};
+
+            // 遍历arrs
+            newArray.forEach(item => {
+              // 统计chainList中unlocked为true的数量
+              let gongminglian = item.chainList.filter(chain => chain.unlocked).length;
+
+              // 获取roleId和roleName
+              let roleId = item.role.roleId;
+              let roleName = item.role.roleName;
+
+              // 将roleId作为对象名，roleName和gongminglian作为属性
+              result[roleId] = { roleName, gongminglian };
+            });
+
+            console.log(result);
+            setMingzuo(result)
+            console.log('成功:', successes);
+            console.log('失败:', failures);
+          });
+        }
       } else {
         alert(rsp.msg)
         console.error('api error:', JSON.stringify(rsp))
@@ -118,7 +192,32 @@ function Login() {
 
       <p>保存后token会保存在浏览器本地，token过期之前不用再填</p>
       {/* 深境区tower     深境之塔area */}
-      <button onClick={fetchTest}>查询</button>
+      <a href="https://rh-docs.netlify.app/docs/list/client/kuro/">鸣潮token获取方法</a>
+      <br />
+      <p style={{ width: '90%' }}>
+        手机上获取token：打开<a href="https://www.kurobbs.com/mc/">库街区鸣潮</a>，使用手机上的电脑模式（又叫UA，设置为PC）访问，随后在右上角操作登录，登录完成后，在浏览器地址栏复制以下代码启用手机模仿电脑F12控制台插件：
+        {``}
+        <br />
+        <Input value={`javascript:(function () { var script = document.createElement('script');
+         script.src="https://cdnjs.cloudflare.com/ajax/libs/eruda/2.4.1/eruda.min.js"; 
+          document.body.appendChild(script); script.onload = function () { eruda.init() } })();`} / >
+        随后屏幕右下角会出现一个方形齿轮图标，点击图标后可以打开和电脑一样的F12控制台，随后看网页
+
+        左边鸣潮
+        关注
+        推荐
+        今州茶馆
+        攻略
+        新手
+        官方
+        同人
+        随便点一下这些菜单，随便点一下但是不要跳转到其他页面，否则就得重新激活插件。在打开插件的状态下切换左边菜单，网页会更新但不跳转，同时控制台会捕捉到网络请求，在network里面随便找到一个新的网络请求，里面就带有token，把token复制下来就行了。每次接收验证码登录token都会刷新
+      </p>
+      <br />
+      <p style={{ width: '90%' }}>：获取到的角色命座【并非】深塔通关时的记录，而是通过库街区接口查询当前角色的命座。如果你用光漂通关后切换暗漂再查询，会出现当前角色和通关时命座不一致的情况。库洛本身并没有制作记录深塔通关角色信息的接口，都是二次查询拼接上的。</p>
+      <br /><br />
+      <Button onClick={fetchTest}>查询</Button>
+      <br /><br /><br />
       <div className={styles.BGI} style={{
         backgroundImage: `url(https://cloudflare-imgbed-4n1.pages.dev/file/bg4.jpg)`,
         backgroundSize: 'cover',
@@ -149,6 +248,9 @@ function Login() {
                       <div className={styles.floorBoxRight}>
                         {floor.roleList.map(role => {
                           return <div key={role.roleId} className={styles.roleBox}>
+                            <div className={styles.roleRank}>
+                              <p>{mingzuo[role.roleId]?.gongminglian}链</p>
+                            </div>
                             <img className={styles.roleRankBg} src={charJson[role.roleId].rank === 5 ? "https://cloudflare-imgbed-4n1.pages.dev/file/char_bg5.png" : "https://cloudflare-imgbed-4n1.pages.dev/file/char_bg4.png"} />
                             <div className={styles.circleMask}>
                               <div className={styles.maskShow}>
@@ -158,7 +260,7 @@ function Login() {
                               </div>
                             </div>
                             <div className={styles.roleName}>
-                              <span>{charJson[role.roleId]?.['zh-Hans'] || ''} </span>
+                              <span>{charJson[role.roleId]?.['zh-Hans'] || ''}</span>
                             </div>
                           </div>
                         })}
