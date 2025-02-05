@@ -1,1 +1,131 @@
-.char{display: flex;}
+@font-face {
+  font-family: "WavesFont"; /* 定义字体名称，用于后续引用 */
+  src: url("https://cloudflare-imgbed-4n1.pages.dev/file/waves_fonts.ttf")
+    format("truetype"); /* 字体的URL和格式 */
+  font-weight: normal;
+  font-style: normal;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.BGI {
+  width: 100%;
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tower {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  align-items: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+.areaWrapper {
+  width: 100%;
+}
+.areaName {
+  text-align: center;
+  color: #fff;
+  font-family: "WavesFont", sans-serif; /* 使用WavesFont，如果不可用则回退到sans-serif */
+}
+.areaFloors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.floorBox {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  width: 90%;
+  .floorBoxLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    font-family: "WavesFont", sans-serif; /* 使用WavesFont，如果不可用则回退到sans-serif */
+    .floorName {
+      margin: 10px 0 -12px;
+    }
+    .floorStar {
+      display: flex;
+      justify-content: center;
+      img {
+        width: 30%;
+        margin: 0 -5px;
+      }
+    }
+  }
+  .floorBoxRight {
+    display: flex;
+    width: 55%;
+  }
+}
+.roleBox {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  .roleRankBg {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    transform: scale(1.2);
+  }
+  .circleMask {
+    // background: gray; /* 遮罩层的颜色和透明度 */
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45px; /* 圆形的宽度 */
+    height: 45px; /* 圆形的高度 */
+    border-radius: 50%; /* 使其成为圆形 */
+    overflow: hidden; /* 隐藏超出圆形的部分 */
+    .maskShow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      //   height: 100%;
+      //   background: red; /* 遮罩层的颜色和透明度 */
+      border-radius: 50%; /* 保持圆形 */
+    }
+    .maskCut {
+      position: relative;
+      width: 100%;
+      //   height: 100%;
+      clip-path: circle(50% at center); /* 创建一个圆形的裁剪区域 */
+    }
+  }
+  .roleName {
+    width: 60px;
+    height: 10px;
+    position: absolute;
+    z-index: 1;
+    top: 50px;
+    left: -1px;
+    text-align: center;
+    font-size: 6px;
+    font-family: "WavesFont", sans-serif;
+  }
+  .roleIconUrl {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.1);
+  }
+}
