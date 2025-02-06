@@ -5,7 +5,13 @@ import autoprefixer from 'autoprefixer'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react()],  
+  // eslint-disable-next-line no-undef
+  base: process.env.VITE_BASE_PATH || '/',
+  build: {
+    // eslint-disable-next-line no-undef
+    outDir: process.env.VITE_ENV === 'cf' ? 'dist-cf' : 'dist-gh',
+  },
   css: {
     postcss: {
       plugins: [

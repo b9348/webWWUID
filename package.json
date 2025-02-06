@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "build:cf": "cross-env NODE_ENV=production VITE_ENV=cf VITE_BASE_PATH=/ vite build",
+    "build:gh": "cross-env NODE_ENV=production VITE_ENV=gh VITE_BASE_PATH=/webWWUID/ vite build"
   },
   "dependencies": {
     "antd": "^5.23.3",
@@ -23,10 +26,12 @@
     "@vitejs/plugin-react": "^4.3.4",
     "amfe-flexible": "^2.2.1",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
+    "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
     "postcss-pxtorem": "^6.1.0",
     "vite": "^6.0.5"
