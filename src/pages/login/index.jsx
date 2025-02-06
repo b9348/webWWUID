@@ -157,6 +157,7 @@ function Login() {
   const tower = towerData.difficultyList && towerData.difficultyList[3]
   return (
     <div className={styles.wrapper}>
+      <h1>鸣潮深塔记录查询带共鸣链版</h1>
       <Form
         name="basic"
         // labelCol={{ span: 2 }}
