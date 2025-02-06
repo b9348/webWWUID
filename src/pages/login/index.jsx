@@ -194,20 +194,12 @@ function Login() {
       <br />
       <p style={{ width: '90%' }}>
         手机上获取token：打开<a href="https://www.kurobbs.com/mc/">库街区鸣潮</a>，使用手机上的电脑模式（又叫UA，设置为PC）访问，随后在右上角操作登录，登录完成后，在浏览器地址栏复制以下代码启用手机模仿电脑F12控制台插件：
-        {``}
         <br />
         <Input value={`javascript:(function () { var script = document.createElement('script');script.src="https://cdnjs.cloudflare.com/ajax/libs/eruda/2.4.1/eruda.min.js";document.body.appendChild(script); script.onload = function () { eruda.init() } })();`} / >
         随后屏幕右下角会出现一个方形齿轮图标，点击图标后可以打开和电脑一样的F12控制台，随后看网页
 
         左边鸣潮
-        关注
-        推荐
-        今州茶馆
-        攻略
-        新手
-        官方
-        同人
-        随便点一下这些菜单，随便点一下但是不要跳转到其他页面，否则就得重新激活插件。在打开插件的状态下切换左边菜单，网页会更新但不跳转，同时控制台会捕捉到网络请求，在network里面随便找到一个新的网络请求，里面就带有token，把token复制下来就行了。每次接收验证码登录token都会刷新
+        关注/推荐/今州茶馆/攻略……点一下这些菜单，随便点一下但是注意不要跳转到其他页面，否则就得重新激活插件。在打开插件的状态下切换左边菜单，网页会更新但不跳转，同时控制台会捕捉到网络请求，在network里面随便找到一个新的网络请求，里面就带有token，把token复制下来就行了。每次接收验证码登录token都会刷新
       </p>
       <br />
       <p style={{ width: '90%' }}>：获取到的角色命座【并非】深塔通关时的记录，而是通过库街区接口查询当前角色的命座。如果你用光漂通关后切换暗漂再查询，会出现当前角色和通关时命座不一致的情况。库洛本身并没有制作记录深塔通关角色信息的接口，都是二次查询拼接上的。</p>
