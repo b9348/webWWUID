@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "build": "vite build",
-    "build:gh": "cross-env VITE_BASE_PATH=/webWWUID/ vite build",
+    "build:gh": "cross-env VITE_BASE_PATH=/webWWUID/ vite build"
   },
   "dependencies": {
     "antd": "^5.23.3",
