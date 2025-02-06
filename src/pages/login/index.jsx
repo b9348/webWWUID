@@ -26,7 +26,7 @@ function Login() {
     alert('保存成功，可以查询')
   }
 
-  const onFinishFailed = (errorInfo) => {
+  const onFinishFailed = () => {
     // console.log('Failed:', errorInfo)
   }
 
@@ -112,7 +112,7 @@ function Login() {
           // 使用示例
           fetchAllSettled(uniqueRoleIds).then(results => {
             const successes = results.filter(r => !r.error);
-            const failures = results.filter(r => r.error);
+            // const failures = results.filter(r => r.error);
             const newArray = [];
 
             // 遍历原始数组
