@@ -8,9 +8,9 @@
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build": "vite build",
-    "build:gh": "cross-env VITE_BASE_PATH=/webWWUID/ vite build",
-    "deploy": "gh-pages -d dist -b gh-pages"
+    "build": "vite build",  
+    "build:gh": "cross-env VITE_BASE_PATH=/webWWUID/ vite build",  
+    "deploy": "gh-pages -d dist -b gh-pages" 
   },
   "dependencies": {
     "antd": "^5.23.3",

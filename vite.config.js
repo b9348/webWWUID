@@ -3,12 +3,12 @@ import react from '@vitejs/plugin-react'
 import postcssPxtorem from 'postcss-pxtorem'
 import autoprefixer from 'autoprefixer'
 
-export default defineConfig((command) => {
-  const base = command === 'build:gh' ? '/webWWUID/' : '/';
+export default defineConfig(() => { // 移除command参数，改用环境变量
+  const base = process.env.VITE_BASE_PATH || '/'; // 从环境变量读取
 
   return {
     plugins: [react()],
-    base,
+    base, // 动态设置base路径
     build: {
       outDir: 'dist'
     },
