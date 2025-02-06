@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # 或者你想要触发部署的其他分支
 
 jobs:
   deploy:
@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install crypto package
+        run: npm install crypto
+
       - name: Build the project
         run: npm run build:gh
 
@@ -30,4 +33,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
-          publish_path: webwwuid
