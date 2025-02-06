@@ -9,8 +9,7 @@ export default defineConfig({
   // eslint-disable-next-line no-undef
   base: process.env.VITE_BASE_PATH || '/',
   build: {
-    // eslint-disable-next-line no-undef
-    outDir: process.env.VITE_ENV === 'cf' ? 'dist-cf' : 'dist-gh',
+    outDir: 'dist',
   },
   css: {
     postcss: {
