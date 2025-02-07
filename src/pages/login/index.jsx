@@ -115,7 +115,7 @@ function Login() {
             // const failures = results.filter(r => r.error);
             const newArray = [];
 
-            // 遍历原始数组
+            // 遍历原始数组。
             for (const item of successes) {
               // 使用JSON.parse()解析每个元素的data属性
               const parsedData = JSON.parse(item.data);
